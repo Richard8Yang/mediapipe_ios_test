@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00991882291D209700D671D1 /* HolisticTrackingGpuFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */; };
+		00991883291D249800D671D1 /* HolisticTrackingGpuFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		37EEA40D2435143600750CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA40C2435143600750CDB /* AppDelegate.swift */; };
 		37EEA40F2435143600750CDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA40E2435143600750CDB /* SceneDelegate.swift */; };
 		37EEA4112435143600750CDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA4102435143600750CDB /* ViewController.swift */; };
@@ -14,8 +16,6 @@
 		37EEA4162435143700750CDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37EEA4152435143700750CDB /* Assets.xcassets */; };
 		37EEA4192435143700750CDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37EEA4172435143700750CDB /* LaunchScreen.storyboard */; };
 		37F8488E243515D80078042B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F8488D243515D80078042B /* Camera.swift */; };
-		3C898119247E0D650048A743 /* HandTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C72850A245183C40005404B /* HandTracker.framework */; };
-		3C89811A247E0D650048A743 /* HandTracker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C72850A245183C40005404B /* HandTracker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,7 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3C89811A247E0D650048A743 /* HandTracker.framework in Embed Frameworks */,
+				00991883291D249800D671D1 /* HolisticTrackingGpuFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HolisticTrackingGpuFramework.framework; sourceTree = "<group>"; };
 		37EEA4092435143600750CDB /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37EEA40C2435143600750CDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37EEA40E2435143600750CDB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +44,6 @@
 		37EEA41A2435143700750CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37F84889243515600078042B /* Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		37F8488D243515D80078042B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
-		3C72850A245183C40005404B /* HandTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HandTracker.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C898119247E0D650048A743 /* HandTracker.framework in Frameworks */,
+				00991882291D209700D671D1 /* HolisticTrackingGpuFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 		37F84884243515500078042B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3C72850A245183C40005404B /* HandTracker.framework */,
+				00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -320,9 +320,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 67HMGMEFBG;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L22X75LR8B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -335,9 +335,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.noppe.handTracker.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = ml.richard.handTracker.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "PF: *";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Example/Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -350,9 +350,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 67HMGMEFBG;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L22X75LR8B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -365,9 +365,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.noppe.handTracker.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = ml.richard.handTracker.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "PF: *";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Example/Example-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

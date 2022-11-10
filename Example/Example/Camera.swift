@@ -11,7 +11,7 @@ import AVFoundation
 class Camera: NSObject {
     lazy var session: AVCaptureSession = .init()
     lazy var input: AVCaptureDeviceInput = try! AVCaptureDeviceInput(device: device)
-    lazy var device: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)!
+    lazy var device: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!
     lazy var output: AVCaptureVideoDataOutput = .init()
     
     override init() {
@@ -21,7 +21,7 @@ class Camera: NSObject {
         session.addOutput(output)
         session.sessionPreset = .photo
         session.connections[0].videoOrientation = .portrait
-        session.connections[0].isVideoMirrored = true
+        session.connections[0].isVideoMirrored = false
     }
     
     func setSampleBufferDelegate(_ delegate: AVCaptureVideoDataOutputSampleBufferDelegate) {

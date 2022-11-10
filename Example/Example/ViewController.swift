@@ -10,13 +10,14 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, TrackerDelegate {
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var toggleView: UISwitch!
     var previewLayer: AVCaptureVideoPreviewLayer!
     @IBOutlet weak var xyLabel:UILabel!
     @IBOutlet weak var featurePoint: UIView!
     let camera = Camera()
-    let tracker: HandTracker = HandTracker()!
+    let tracker: HolisticTracker = HolisticTracker()!
     
     
     override func viewDidLoad() {
@@ -43,12 +44,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
     }
-    
-//    func handTracker(_ handTracker: HandTracker!, didOutputLandmarks landmarks: [Landmark]!, andHand handSize: CGSize) {
-//        print("")
-//    }
-    
-    func handTracker(_ handTracker: HandTracker!, didOutputLandmarks landmarks: [Landmark]!, andHand handSize: CGSize) {
+
+/*
+    func handTracker(_ handTracker: HolisticTracker!, didOutputLandmarks landmarks: [Landmark]!, andHand handSize: CGSize) {
 
         var thumbUp = false
         var firstUp = false
@@ -124,8 +122,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 //        }
 //        print(landmarks!)
     }
+*/
     
-    func handTracker(_ handTracker: HandTracker!, didOutputPixelBuffer pixelBuffer: CVPixelBuffer!) {
+    func holisticTracker(_ holisticTracker: HolisticTracker!, didOutputPixelBuffer pixelBuffer: CVPixelBuffer!) {
+        // Holistic tracker delegate output function
         DispatchQueue.main.async {
             if self.toggleView.isOn {
                 self.imageView.image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
