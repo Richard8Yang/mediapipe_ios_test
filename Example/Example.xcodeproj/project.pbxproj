@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00991882291D209700D671D1 /* HolisticTrackingGpuFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */; };
-		00991883291D249800D671D1 /* HolisticTrackingGpuFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		00AA9B9E291E76E900031943 /* HolisticTracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AA9B9D291E76E900031943 /* HolisticTracking.framework */; };
+		00AA9B9F291E76EF00031943 /* HolisticTracking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00AA9B9D291E76E900031943 /* HolisticTracking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		37EEA40D2435143600750CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA40C2435143600750CDB /* AppDelegate.swift */; };
 		37EEA40F2435143600750CDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA40E2435143600750CDB /* SceneDelegate.swift */; };
 		37EEA4112435143600750CDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EEA4102435143600750CDB /* ViewController.swift */; };
@@ -25,7 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				00991883291D249800D671D1 /* HolisticTrackingGpuFramework.framework in Embed Frameworks */,
+				00AA9B9F291E76EF00031943 /* HolisticTracking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,7 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HolisticTrackingGpuFramework.framework; sourceTree = "<group>"; };
+		00AA9B9D291E76E900031943 /* HolisticTracking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HolisticTracking.framework; sourceTree = "<group>"; };
 		37EEA4092435143600750CDB /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37EEA40C2435143600750CDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37EEA40E2435143600750CDB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00991882291D209700D671D1 /* HolisticTrackingGpuFramework.framework in Frameworks */,
+				00AA9B9E291E76E900031943 /* HolisticTracking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 		37F84884243515500078042B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				00991881291D209700D671D1 /* HolisticTrackingGpuFramework.framework */,
+				00AA9B9D291E76E900031943 /* HolisticTracking.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
