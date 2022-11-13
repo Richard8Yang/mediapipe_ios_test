@@ -17,7 +17,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBOutlet weak var xyLabel:UILabel!
     @IBOutlet weak var featurePoint: UIView!
     let camera = Camera()
-    let tracker: HolisticTracker = HolisticTracker(true)!
+    let tracker: HolisticTracker = HolisticTracker(false, enableRefinedFace: true)!
     
     
     override func viewDidLoad() {
