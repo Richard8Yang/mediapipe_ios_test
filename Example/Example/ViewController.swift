@@ -17,7 +17,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBOutlet weak var xyLabel:UILabel!
     @IBOutlet weak var featurePoint: UIView!
     
-    static let trackerParams: HolisticTrackerConfig = HolisticTrackerConfig(false, enableRefinedFace: true, maxPersonsToTrack: 0, enableFaceLandmarks: true, enablePoseLandmarks: false, enableLeftHandLandmarks: true, enableRightHandLandmarks: true, enableHolisticLandmarks: true, enablePoseWorldLandmarks: false, enablePixelBufferOutput: true)
+    static let trackerParams: HolisticTrackerConfig = HolisticTrackerConfig(false, enableRefinedFace: true, maxPersonsToTrack: 0, enableFaceLandmarks: false, enablePoseLandmarks: false, enableLeftHandLandmarks: false, enableRightHandLandmarks: false, enableHolisticLandmarks: true, enablePoseWorldLandmarks: false, enablePixelBufferOutput: true)
     let tracker: HolisticTracker = HolisticTracker(trackerParams)!
     let camera = Camera()
     
@@ -60,6 +60,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         name.withCString { nameStr in
             if (0 == memcmp(nameStr, kMultiHolisticStream, strlen(kMultiHolisticStream))) {
                 processHolisticLandmarks(packet)
+            } else if (0 == memcmp(nameStr, kMultiFaceStream, strlen(kMultiFaceStream)) ||
+                       0 == memcmp(nameStr, kMultiPoseStream, strlen(kMultiPoseStream)) ||
+                       0 == memcmp(nameStr, kMultiLeftHandStream, strlen(kMultiLeftHandStream)) ||
+                       0 == memcmp(nameStr, kMultiRightHandStream, strlen(kMultiRightHandStream)) ||
+                       0 == memcmp(nameStr, kMultiPoseWorldStream, strlen(kMultiPoseWorldStream))) {
+                processLandmarksByType(packet, landmarkType: name)
             }
         }
     }
@@ -73,11 +79,24 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             NSLog("Holistic landmark #%d count %d", index, holisticDict.count)
             for (lmKey, lmVal) in holisticDict {
                 let landmarkType = lmKey as! Int
-                let landmarkArray = lmVal as! [Landmark]
-                NSLog("#%d landmarks count %d", landmarkType, landmarkArray.count)
-                for landmark in landmarkArray {
+                let landmarkList = lmVal as! [Landmark]
+                NSLog("#%d landmarks count %d", landmarkType, landmarkList.count)
+                for landmark in landmarkList {
                     NSLog("\t\"%d\": %.6f %.6f %.6f", landmarkType, landmark.x, landmark.y, landmark.z)
                 }
+            }
+        }
+    }
+    
+    func processLandmarksByType(_ landmarkData: [AnyHashable : Any]!, landmarkType: String) {
+        // Landmarks of a single component, Dict<Array<Landmark>>
+        NSLog("==== Got new %s packet ====", landmarkType)
+        for (idx, data) in landmarkData {
+            let index = idx as! Int
+            let landmarkList = data as! [Landmark]
+            NSLog("#%d landmarks count %d", index, landmarkList.count)
+            for landmark in landmarkList {
+                NSLog("\t\"%d\": %.6f %.6f %.6f", index, landmark.x, landmark.y, landmark.z)
             }
         }
     }
