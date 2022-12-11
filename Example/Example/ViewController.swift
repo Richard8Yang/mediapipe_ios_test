@@ -16,9 +16,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var previewLayer: AVCaptureVideoPreviewLayer!
     @IBOutlet weak var xyLabel:UILabel!
     @IBOutlet weak var featurePoint: UIView!
-    let camera = Camera()
-    let tracker: HolisticTracker = HolisticTracker(false, enableRefinedFace: true, maxDetectPersons: 2)!
     
+    static let trackerParams: HolisticTrackerConfig = HolisticTrackerConfig(false, enableRefinedFace: true, maxPersonsToTrack: 0, enableFaceLandmarks: true, enablePoseLandmarks: false, enableLeftHandLandmarks: true, enableRightHandLandmarks: true, enableHolisticLandmarks: true, enablePoseWorldLandmarks: false, enablePixelBufferOutput: true)
+    let tracker: HolisticTracker = HolisticTracker(trackerParams)!
+    let camera = Camera()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,91 +45,39 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
     }
-
-/*
-    func handTracker(_ handTracker: HolisticTracker!, didOutputLandmarks landmarks: [Landmark]!, andHand handSize: CGSize) {
-
-        var thumbUp = false
-        var firstUp = false
-        var secondUp = false
-        var thirdUp = false
-        var fourUp = false
-        
-        var pseudoFixKeyPoint = landmarks[2].x
-        if (landmarks[3].x < pseudoFixKeyPoint && landmarks[4].x < pseudoFixKeyPoint)
-        {
-            thumbUp = true;
-        }
-        thumbUp = true;
-        
-        pseudoFixKeyPoint = landmarks[6].y;
-        if (landmarks[7].y < pseudoFixKeyPoint && landmarks[8].y < pseudoFixKeyPoint)
-        {
-            firstUp = true;
-        }
-
-        pseudoFixKeyPoint = landmarks[10].y;
-        if (landmarks[11].y < pseudoFixKeyPoint && landmarks[12].y < pseudoFixKeyPoint)
-        {
-            secondUp = true;
-        }
-
-        pseudoFixKeyPoint = landmarks[14].y;
-        if (landmarks[15].y < pseudoFixKeyPoint && landmarks[16].y < pseudoFixKeyPoint)
-        {
-            thirdUp = true;
-        }
-
-        pseudoFixKeyPoint = landmarks[18].y;
-        if (landmarks[19].y < pseudoFixKeyPoint && landmarks[20].y < pseudoFixKeyPoint)
-        {
-            fourUp = true;
-        }
-        
-        if thumbUp && firstUp && secondUp && thirdUp && fourUp {
-            DispatchQueue.main.async {
-                self.xyLabel.text = "FIVE"
-            }
-            return
-        }
-        
-        if let first = landmarks[safe:8], let second = landmarks[safe:12], let thr = landmarks[safe:16], let four = landmarks[safe:20], let thumb = landmarks[safe:4], let thumb2 = landmarks[safe:2] {
-            
-            if thumb.y < first.y && thumb.y < second.y && thumb.y < thr.y && thumb.y < four.y && thumb2.y > four.y {
-                DispatchQueue.main.async {
-                    if thumb.x < first.x {
-                        self.xyLabel.text = "left"
-                    } else {
-                        self.xyLabel.text = "right"
-                    }
-                }
-//                print("left")
-            } else {
-                DispatchQueue.main.async {
-                    self.xyLabel.text = ""
-                }
-            }
-        }
-        
-//        if let landmark = landmarks[safe : 8] {
-//            DispatchQueue.main.async {
-//                let width = self.view.frame.size.width
-//                let height = self.view.frame.size.height
-//                let x = CGFloat(landmark.x) * width
-//                let y = CGFloat(landmark.y) * height
-//                self.featurePoint.frame = CGRect(x: CGFloat(landmark.x) * width, y: CGFloat(landmark.y) * height, width: 5, height: 5)
-//                self.xyLabel.text = "\(landmark.x) , \(landmark.y)"
-//            }
-//        }
-//        print(landmarks!)
-    }
-*/
     
     func holisticTracker(_ holisticTracker: HolisticTracker!, didOutputPixelBuffer pixelBuffer: CVPixelBuffer!) {
         // Holistic tracker delegate output function
         DispatchQueue.main.async {
             if self.toggleView.isOn {
                 self.imageView.image = UIImage(ciImage: CIImage(cvPixelBuffer: pixelBuffer))
+            }
+        }
+    }
+    
+    func holisticTracker(_ holisticTracker: HolisticTracker!, didOutputLandmarks name: String!, packetData packet: [AnyHashable : Any]!) {
+        // Landmarks handling
+        name.withCString { nameStr in
+            if (0 == memcmp(nameStr, kMultiHolisticStream, strlen(kMultiHolisticStream))) {
+                processHolisticLandmarks(packet)
+            }
+        }
+    }
+    
+    func processHolisticLandmarks(_ landmarkData: [AnyHashable : Any]!) {
+        // Holistic landmarks, Dict<Dict<Array<Landmark>>>
+        NSLog("==== Got new holistic packet ====")
+        for (idx, data) in landmarkData {
+            let index = idx as! Int
+            let holisticDict = data as! [AnyHashable : Any]
+            NSLog("Holistic landmark #%d count %d", index, holisticDict.count)
+            for (lmKey, lmVal) in holisticDict {
+                let landmarkType = lmKey as! Int
+                let landmarkArray = lmVal as! [Landmark]
+                NSLog("#%d landmarks count %d", landmarkType, landmarkArray.count)
+                for landmark in landmarkArray {
+                    NSLog("\t\"%d\": %.6f %.6f %.6f", landmarkType, landmark.x, landmark.y, landmark.z)
+                }
             }
         }
     }
